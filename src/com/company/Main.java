@@ -3,35 +3,35 @@ package com.company;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
         StringBuilder temptxt = new StringBuilder();
-        File src = new File("D://Games/Game/src");
-        makeDir(src, temptxt);
-        File res = new File("D://Games/Game/res");
-        makeDir(res, temptxt);
-        File savegames = new File("D://Games/Game/savegames");
-        makeDir(savegames, temptxt);
-        File temp = new File("D://Games/Game/temp");
-        makeDir(temp, temptxt);
-        File srcMain = new File("D://Games/Game/src/main");
-        makeDir(srcMain, temptxt);
-        File srcTest = new File("D://Games/Game/src/test");
-        makeDir(srcTest, temptxt);
-        File fileMain = new File("D://Games/Game/src/main", "Main.java");
-        createFile(fileMain, temptxt);
-        File fileUtils = new File("D://Games/Game/src/main", "Utils.java");
-        createFile(fileUtils, temptxt);
-        File resDrawables = new File("D://Games/Game/res/drawables");
-        makeDir(resDrawables, temptxt);
-        File resVectors = new File("D://Games/Game/res/vectors");
-        makeDir(resVectors, temptxt);
-        File resIcons = new File("D://Games/Game/res/icons");
-        makeDir(resIcons, temptxt);
-        File tempTemp = new File("D://Games/Game/temp", "temp.txt");
-        try (FileWriter writer = new FileWriter(tempTemp, false)) {
+        List<File> folders = Arrays.asList(
+                new File("D://Games/Game", "src"),
+                new File("D://Games/Game/res"),
+                new File("D://Games/Game/savegames"),
+                new File("D://Games/Game/temp"),
+                new File("D://Games/Game/src/main"),
+                new File("D://Games/Game/src/test"),
+                new File("D://Games/Game/res/drawables"),
+                new File("D://Games/Game/res/vectors"),
+                new File("D://Games/Game/res/icons"));
+        List<File> files = Arrays.asList(
+                new File("D://Games/Game/src/main", "Main.java"),
+                new File("D://Games/Game/src/main", "Utils.java"));
+        for (File folder : folders) {
+            makeDir(folder, temptxt);
+            if (folder.getPath().contains("main")) {
+                for (File file : files) {
+                    createFile(file, temptxt);
+                }
+            }
+        }
+        try (FileWriter writer = new FileWriter(new File("D://Games/Game/temp", "temp.txt"), false)) {
             writer.write(temptxt.toString());
             writer.flush();
         } catch (IOException ex) {
