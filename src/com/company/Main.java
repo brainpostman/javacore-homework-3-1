@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         StringBuilder temptxt = new StringBuilder();
         List<File> folders = Arrays.asList(
-                new File("D://Games/Game", "src"),
+                new File("D://Games/Game/src"),
                 new File("D://Games/Game/res"),
                 new File("D://Games/Game/savegames"),
                 new File("D://Games/Game/temp"),
